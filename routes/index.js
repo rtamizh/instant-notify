@@ -37,7 +37,7 @@ router.post('/app/user/create',function  (req,res,next) {
 	};
 	database.createUser(data,function  (msg,result) {
 		console.log(result);
-		if (error_msg == 'exists') {
+		if (msg == 'exists') {
 			res.json({
 				error_code:400,
 				error_msg:'name already exists',

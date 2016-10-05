@@ -1,4 +1,4 @@
-var socket = io.connect('http://localhost:3000');
+var socket = io.connect('http://localhost:8000');
 if(window.WebSocket){
     console.log('websocket works');
 } else {

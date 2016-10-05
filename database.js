@@ -2,10 +2,10 @@ var mysql      = require('mysql');
 var crypto = require('crypto');
 var app = require('./app.js');
 module.exports.connection = connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : 'pwd',
-  database : 'instant_notification'
+  host     : process.env.DB_HOST,
+  user     : process.env.DB_USER,
+  password : process.env.DB_PASS,
+  database : process.env.DB_NAME
 });
 
 

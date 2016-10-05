@@ -3,7 +3,7 @@ var type = dbm.dataType;
 
 exports.up = function(db, callback) {
 	db.createTable('notifications',{
-		id:{type:'int',primaryKey:true},
+		id:{type:'int',primaryKey:true, autoIncrement: true },
 		user_id:'int',
 		is_notified:'boolean',
 		text:'string',
