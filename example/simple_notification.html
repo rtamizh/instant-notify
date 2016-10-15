@@ -1,0 +1,21 @@
+<html>
+	<head>
+		<script src="http://localhost:8000/socket.io/socket.io.js"></script>
+		<script src="notification.js"></script>
+		<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+	</head>
+<div id="instant_notification"></div>
+<script>
+	var notification = new Notification('dcec32f52d2ea188540de06f5042220e');
+	notification.login();
+	notification.getNotification(9,function(data){
+		$.each(data,function(index,value){
+			console.log(value);
+		})
+	})
+	notification.socket.on('notification',function(data){
+		string = "<img src="+data.image+" height='50px' width='50px'>"+data.text+"<br>";
+		$('#instant_notification').append(string);
+	})
+</script>
+</html>
