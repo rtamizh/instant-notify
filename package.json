@@ -1,7 +1,9 @@
 {
+  "author": "Tamizharasan",
+  "license": "MIT",
   "name": "instant-notification",
   "version": "1.0.0",
-  "private": true,
+  "description": "A simple push notification server for delivering instant (real-time) notification.",
   "scripts": {
     "start": "node ./bin/www"
   },
@@ -19,5 +21,8 @@
     "node-env-file": "~0.1.8",
     "bcrypt": "~0.8.7",
     "model": "~6.0.1"
+  },
+  "bugs": {
+    "url": "https://github.com/rtamizh/instant-notify/issues"
   }
 }
