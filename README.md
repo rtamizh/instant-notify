@@ -39,4 +39,4 @@ A simple push notification server for delivering instant (real-time) notificatio
 
   6. I know it's hard to work with curl request. so i have added the postman collection file (instant-notify.json) in example folder. import the file in postman, and you will get all three request in the postman.
 
-  7. When you are developing in laravel, you can find my laravel package in the following link. 
+  7. When you are developing in laravel, you can find my laravel package in the following link <a href="https://github.com/rtamizh/realtime-push"> rtamizh/realtime-push </a>.
