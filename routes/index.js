@@ -7,6 +7,7 @@ var User = require('../models/user.js');
 var Notification = require('../models/notification.js');
 var UserSocket = require('../models/user_socket.js');
 var io = require('./socket.js');
+var Log = require('../models/log.js');
 
 //	create notification application (to handle multiple application)
 router.post('/app/create', function  (req,res) {
@@ -229,5 +230,41 @@ router.post('/app/notification/create',function  (req, res) {
 		}
 	})
 });
+
+router.post('/app/user/log', function (req, res) {
+	var data = {
+		app_secret : req.body.app_secret,
+		user_secret : req.body.user_secret,
+		action : req.body.action,
+		message : req.body.message
+	};
+	appModel.getDetails(data.app_secret, function (app) {
+		if (app.length == 0) {
+			res.json({
+				error_code: 11,
+				error_msg: 'app not exist',
+				message: 'error'
+			});
+		}else{
+			data.app_id = app[0].id;
+			User.getDetails(data.user_secret, function (user) {
+				if (user.length == 0) {
+					res.json({
+						error_code: 12,
+						error_msg: 'user not exist',
+						message: 'error'
+					});
+				}else{
+					data.user_id = user[0].id;
+					data.app_id = user[0].app_id;
+					Log.create(data);
+					res.json({
+						message:'success'
+					});
+				}
+			});
+		}
+	});
+})
 
 module.exports = router;

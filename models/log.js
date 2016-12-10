@@ -13,5 +13,8 @@ exports.create = function (data,callback) {
 	query += ',1,NOW(),NOW())';
 	database.query(query,function  (err, row) {
 		if (err) throw err;
+		if (callback) {
+			callback(true)
+		}
 	});
 }
