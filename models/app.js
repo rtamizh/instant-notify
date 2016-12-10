@@ -23,7 +23,7 @@ exports.create = function  (name, callback) {
 	time = time.getTime();
 	var secret_id = name+time;
 	secret_id = crypto.createHash('md5').update(secret_id).digest('hex');
-	database.query('insert into apps (id, name, secret_id, is_active, created_at) values (default, "'+name+'", "'+secret_id+'", 1, "'+time+'")',function(err) {
+	database.query('insert into apps (id, name, secret_id, is_active, created_at) values (default, "'+name+'", "'+secret_id+'", 1, NOW())',function(err) {
 		if (err) throw err;
 		callback(secret_id);
 	});

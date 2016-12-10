@@ -7,7 +7,8 @@ exports.up = function(db, callback) {
   	name:'string',
   	secret_id:'string',
   	is_active:'boolean',
-  	created_at:'string'
+  	created_at:'datetime',
+  	updated_at:'datetime'
   }, callback)
 };
 

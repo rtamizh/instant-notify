@@ -1,21 +1,22 @@
 <html>
 	<head>
 		<script src="http://localhost:8000/socket.io/socket.io.js"></script>
-		<script src="notification.js"></script>
+		<script src="push.js"></script>
 		<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
 	</head>
 <div id="instant_notification"></div>
 <script>
-	var notification = new Notification('dcec32f52d2ea188540de06f5042220e', 'http://localhost:8000');
-	notification.login();
-	notification.getNotification(9,function(data){
+	var push = new Push('f9ef993cfd07a624199994a6b5461f23', 'http://localhost:8000');
+	push.login();
+	push.getNotification(9,function(data){
 		$.each(data,function(index,value){
 			console.log(value);
 		})
 	})
-	notification.socket.on('notification',function(data){
+	push.socket.on('notification',function(data){
 		string = "<img src="+data.image+" height='50px' width='50px'>"+data.text+"<br>";
 		$('#instant_notification').append(string);
 	})
+	push.log('url');
 </script>
 </html>

@@ -12,8 +12,8 @@ exports.up = function(db, callback) {
 		is_active:'boolean',
 		is_alive:'boolean',
 		last_alive_time:'string',
-		created_at:'string',
-		updated_at:'string'
+		created_at:'datetime',
+		updated_at:'datetime'
 	},callback);
 };
 

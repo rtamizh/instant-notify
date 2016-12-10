@@ -3,6 +3,7 @@
 var socket_io = require( "socket.io" );
 var UserSocket = require('../models/user_socket.js');
 var User = require('../models/user.js');
+var Log = require('../models/log.js');
 
 var io = socket_io();
 // create socket.io connection functionalities
@@ -21,6 +22,30 @@ io.on('connection',function  (socket) {
 			}
 		})
   	});
+
+  	// user log store
+  	socket.on('log', function(req) {
+  		var action = req.action;
+      var message = null;
+      if (req.message) {
+        message = req.message;
+      }
+  		UserSocket.getUserBySocket(socket.id, function (user_socket) {
+  			if (user_socket) {
+  				User.find(user_socket.user_id, function (user) {
+  					if (user) {
+  						var data = {
+  							user_id: user.id,
+  							app_id: user.app_id,
+  							action: action,
+  							message: message
+  						}
+  						Log.create(data);
+  					}
+  				})
+  			}
+  		})
+  	})
 
 	// 	User will ask for notification from browser, it will be useful if app handle all notification with this server
 	// socket.on('requestNotification',function  (req) {

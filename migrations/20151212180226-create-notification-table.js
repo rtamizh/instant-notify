@@ -9,7 +9,8 @@ exports.up = function(db, callback) {
 		text:'string',
 		image:'string',
 		notification_link_url:'string',
-		created_at:'string'
+		created_at:'datetime',
+		updated_at:'datetime'
 	},callback);
 };
 

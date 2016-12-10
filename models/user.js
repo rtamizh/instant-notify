@@ -19,7 +19,7 @@ exports.create = function  (data, callback) {
 	secret_id = crypto.createHash('md5').update(secret_id).digest('hex');
 	bcrypt.hash(data.password, saltRounds, function(err, hash) {
 		if (err) throw err;
-		database.query('insert into users (id, name, password, secret_id, app_id, is_active, created_at, updated_at) values (default, "'+data.name+'", "'+hash+'", "'+secret_id+'", "'+data.app_id+'", 0, "'+time+'", "'+time+'")',function  (err) {
+		database.query('insert into users (id, name, password, secret_id, app_id, is_active, created_at, updated_at) values (default, "'+data.name+'", "'+hash+'", "'+secret_id+'", "'+data.app_id+'", 0, NOW(), NOW())',function  (err) {
 			if (err) throw err;
 			callback(secret_id);
 		});
@@ -58,3 +58,11 @@ exports.updateSecret = function (data, callback) {
 		}
 	});
 };
+
+exports.find = function (user_id, callback) {
+	database.query('select * from users where id = "'+user_id+'"', function (err, rows) {
+		if (err) throw err;
+		if (rows.length == 0) callback(null)
+		callback(rows[0]);
+	});
+}
