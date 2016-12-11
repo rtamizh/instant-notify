@@ -2,7 +2,7 @@ var AuthMiddleware = require('../middlewares/auth_middleware.js');
 
 var Notification = require('../models/notification.js');
 var UserSocket = require('../models/user_socket.js');
-var io = require('./socket.js');
+var io = require('../routes/socket.js');
 
 exports.create = function (req, res) {
 	AuthMiddleware.validate(req, res, function (user) {
