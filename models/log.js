@@ -18,3 +18,23 @@ exports.create = function (data,callback) {
 		}
 	});
 }
+
+exports.get = function (data, callback) {
+	var query = 'select * from logs where user_id = '+data.user_id;
+	if (data.action) {
+		query += ' and action = "'+data.action+'"';
+	}
+	if (data.message) {
+		query += ' and message = "'+data.message+'"';
+	}
+	if (data.from) {
+		query += ' and created_at <= "'+data.from+'"';
+	}
+	if (data.to) {
+		query += ' and created_at >= "'+data.to+'"';
+	}
+	database.query(query, function (err, rows) {
+		if (err) throw err;
+		callback(rows);
+	})
+}

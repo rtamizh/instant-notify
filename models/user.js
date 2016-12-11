@@ -35,14 +35,17 @@ exports.deactivate = function (data, callback) {
 exports.getByCredentials = function (data, callback) {
 	database.query('select * from users where name = "'+data.name+'" and app_id = "'+data.app_id+'"', function (err, rows) {
 		if (err) throw err;
-		rows.forEach(function (row) {
+		rows.forEach(function (row, index) {
 			bcrypt.compare(data.password, row.password, function(err, res) {
-				if (res) {
+				if (res && index !== rows.length-1) {
 					callback(row);
+				}else if (res) {
+					callback(row);
+				} else{
+					callback([]);
 				}
 			});
 		});
-		callback([]);
 	});
 };
 

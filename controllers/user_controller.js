@@ -1,6 +1,6 @@
 var appModel = require('../models/app.js');
 var User = require('../models/user.js');
-var AuthMiddleware = require('../middlewares/auth_middleware.js');
+// var AuthMiddleware = require('../middlewares/auth_middleware.js');
 
 exports.create = function (req, res) {
 	var data = {
@@ -28,47 +28,41 @@ exports.create = function (req, res) {
 }
 
 exports.deactivate = function (req, res) {
-	AuthMiddleware.validate(req, res, function (user) {
-		User.deactivate(user, function (result) {
-			if (result) {
-				res.json({
-					message: 'success'
-				});
-			}else{
-				res.json({
-					error_code: 20,
-					error_msg: 'unknown error',
-					message: 'error'
-				});
-			}
-		})
+	User.deactivate(req.user, function (result) {
+		if (result) {
+			res.json({
+				message: 'success'
+			});
+		}else{
+			res.json({
+				error_code: 20,
+				error_msg: 'unknown error',
+				message: 'error'
+			});
+		}
 	})
 }
 
 exports.updateSecret = function (req, res) {
-	AuthMiddleware.validate(req, res, function (user) {
-		User.updateSecret(data, function (result) {
-			if (result.length) {
-				res.json({
-					secret_id: result[0].secret_id,
-					message: 'success'
-				});
-			}else{
-				res.json({
-					error_code: 12,
-					error_msg: 'user not exist',
-					message: 'error'
-				});
-			}
-		})
+	User.updateSecret(req.user, function (result) {
+		if (result.length) {
+			res.json({
+				secret_id: result[0].secret_id,
+				message: 'success'
+			});
+		}else{
+			res.json({
+				error_code: 12,
+				error_msg: 'user not exist',
+				message: 'error'
+			});
+		}
 	})
 }
 
 exports.getSecretByCredentials = function (req, res) {
-	AuthMiddleware.validate(req, res, function (user) {
-		res.json({
-			user_secret: user.secret_id,
-			message: 'success'
-		});
-	})
+	res.json({
+		user_secret: req.user.secret_id,
+		message: 'success'
+	});
 }

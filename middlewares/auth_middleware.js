@@ -1,7 +1,7 @@
 var appModel = require('../models/app.js');
 var User = require('../models/user.js');
 
-exports.validate = function (req, res) {
+exports.user_validate = function (req, res, next) {
 	var data = {
 		app_secret : req.body.app_secret
 	};
@@ -14,8 +14,8 @@ exports.validate = function (req, res) {
 				message: 'error'
 			});
 		}else{
-			if (req.body.app_secret != undefined) {
-				User.getDetails(req.body.app_secret, function (user) {
+			if (req.body.user_secret != undefined) {
+				User.getDetails(req.body.user_secret, function (user) {
 					if (user.length == 0) {
 						res.json({
 							error_code: 12,
@@ -23,15 +23,18 @@ exports.validate = function (req, res) {
 							message: 'error'
 						});
 					}else{
-						callback(user[0]);
+						req.user = user[0];
+						next();
 					}
 				});
 			}else if (req.body.password != undefined) {
 				data['password'] = req.body.password;
 				data['name'] = req.body.name;
-				getByCredentials(data, function (user) {
-					if (user.lenght) {
-						callback(user[0]);
+				data['app_id'] = app[0].id;
+				User.getByCredentials(data, function (user) {
+					if (user) {
+						req.user = user;
+						next();
 					}else{
 						res.json({
 							error_code: 12,
