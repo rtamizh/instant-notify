@@ -1,0 +1,180 @@
+{
+	"id": "13741e4a-9af2-6b7f-9663-78055e87095e",
+	"name": "instant_notify",
+	"description": "",
+	"order": [
+		"60b95428-c99a-1c32-582d-07c22c92e83c",
+		"d2316624-1cab-e926-184f-ee9d45faef9b",
+		"5931bd24-c01f-e8ba-2f08-a9d6b8b74c98",
+		"24366d81-dde8-dcdd-2e1e-82df7c9ce455"
+	],
+	"folders": [],
+	"timestamp": 1475689163782,
+	"owner": "42054",
+	"public": false,
+	"requests": [
+		{
+			"id": "24366d81-dde8-dcdd-2e1e-82df7c9ce455",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"url": "localhost:8000/api/log/get",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "13741e4a-9af2-6b7f-9663-78055e87095e",
+			"data": [
+				{
+					"key": "app_secret",
+					"value": "d128ac8bd3c0bc1764d794a433f4cca6",
+					"type": "text",
+					"enabled": true,
+					"warning": ""
+				},
+				{
+					"key": "user_secret",
+					"value": "c94fb950878c5d933b1b2fef8721a611",
+					"type": "text",
+					"enabled": true,
+					"warning": ""
+				},
+				{
+					"key": "",
+					"value": "",
+					"type": "text",
+					"enabled": true,
+					"warning": ""
+				}
+			],
+			"dataMode": "urlencoded",
+			"name": "localhost:8000/api/log/get",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1481467954460,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "5931bd24-c01f-e8ba-2f08-a9d6b8b74c98",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"url": "localhost:8000/api/notification/create",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "app_secret",
+					"value": "d128ac8bd3c0bc1764d794a433f4cca6",
+					"type": "text",
+					"enabled": true,
+					"warning": ""
+				},
+				{
+					"key": "user_secret",
+					"value": "c94fb950878c5d933b1b2fef8721a611",
+					"type": "text",
+					"enabled": true,
+					"warning": ""
+				},
+				{
+					"key": "text",
+					"value": "success",
+					"type": "text",
+					"enabled": true,
+					"warning": ""
+				},
+				{
+					"key": "image",
+					"value": "https://s-media-cache-ak0.pinimg.com/originals/0a/f4/2a/0af42ab3b37342b693626f86ac6ece96.jpg",
+					"type": "text",
+					"enabled": true,
+					"warning": ""
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1481467812338,
+			"name": "localhost:8000/api/app/notification/create",
+			"description": "",
+			"collectionId": "13741e4a-9af2-6b7f-9663-78055e87095e",
+			"responses": []
+		},
+		{
+			"id": "60b95428-c99a-1c32-582d-07c22c92e83c",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"url": "localhost:8000/api/app/create",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "name",
+					"value": "testing",
+					"type": "text",
+					"enabled": true,
+					"warning": ""
+				},
+				{
+					"key": "secret_key",
+					"value": "sdkf8slkd3nsld",
+					"type": "text",
+					"enabled": true,
+					"warning": ""
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1481467729810,
+			"name": "localhost:8000/api/app/create",
+			"description": "",
+			"collectionId": "13741e4a-9af2-6b7f-9663-78055e87095e"
+		},
+		{
+			"id": "d2316624-1cab-e926-184f-ee9d45faef9b",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"url": "localhost:8000/api/user/create",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "name",
+					"value": "tamizharasan",
+					"type": "text",
+					"enabled": true,
+					"warning": ""
+				},
+				{
+					"key": "password",
+					"value": "password",
+					"type": "text",
+					"enabled": true,
+					"warning": ""
+				},
+				{
+					"key": "app_secret",
+					"value": "d128ac8bd3c0bc1764d794a433f4cca6",
+					"type": "text",
+					"enabled": true,
+					"warning": ""
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1481467817142,
+			"name": "localhost:8000/api/app/user/create",
+			"description": "",
+			"collectionId": "13741e4a-9af2-6b7f-9663-78055e87095e"
+		}
+	]
+}
