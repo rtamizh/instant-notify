@@ -43,11 +43,27 @@ exports.deactivate = function (req, res) {
 	})
 }
 
+exports.activate = function (req, res) {
+	User.activate(req.user, function (result) {
+		if (result) {
+			res.json({
+				message: 'success'
+			});
+		}else{
+			res.json({
+				error_code: 20,
+				error_msg: 'unknown error',
+				message: 'error'
+			});
+		}
+	})
+}
+
 exports.updateSecret = function (req, res) {
 	User.updateSecret(req.user, function (result) {
-		if (result.length) {
+		if (result) {
 			res.json({
-				secret_id: result[0].secret_id,
+				user_secret: result.secret_id,
 				message: 'success'
 			});
 		}else{

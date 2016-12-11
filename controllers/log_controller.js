@@ -6,7 +6,7 @@ var Utils = require('../lib/utils.js');
 exports.create = function (req, res) {
 	var data = {
 		app_id : req.user.app_id,
-		user_id : user.user_id,
+		user_id : req.user.id,
 		action : req.body.action,
 		message : req.body.message
 	};

@@ -23,8 +23,16 @@ exports.user_validate = function (req, res, next) {
 							message: 'error'
 						});
 					}else{
-						req.user = user[0];
-						next();
+						if (user[0].is_active || req.url.search('user/activate')) {
+							req.user = user[0];
+							next();
+						}else{
+							res.json({
+								error_code: 13,
+								error_msg: 'user not active',
+								message: 'error'
+							});
+						}
 					}
 				});
 			}else if (req.body.password != undefined) {
@@ -33,8 +41,16 @@ exports.user_validate = function (req, res, next) {
 				data['app_id'] = app[0].id;
 				User.getByCredentials(data, function (user) {
 					if (user) {
-						req.user = user;
-						next();
+						if(user.is_active){
+							req.user = user;
+							next();
+						}else{
+							res.json({
+								error_code: 13,
+								error_msg: 'user not active',
+								message: 'error'
+							});
+						}
 					}else{
 						res.json({
 							error_code: 12,

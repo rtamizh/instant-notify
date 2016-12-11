@@ -27,6 +27,10 @@ router.post('/user/deactivate', AuthMiddleware.user_validate, function (req, res
 	UserController.deactivate(req, res);
 });
 
+router.post('/user/activate', AuthMiddleware.user_validate, function (req, res) {
+	UserController.activate(req, res);
+});
+
 router.post('/user/secret/update', AuthMiddleware.user_validate, function (req,res) {
 	UserController.updateSecret(req, res);
 });
@@ -36,15 +40,15 @@ router.post('/user/secret/get', AuthMiddleware.user_validate, function (req, res
 });
 
 // create notification for user
-router.post('/app/notification/create', AuthMiddleware.user_validate, function  (req, res) {
+router.post('/notification/create', AuthMiddleware.user_validate, function  (req, res) {
 	NotificationController.create(req, res);
 });
 
-router.post('/user/log', AuthMiddleware.user_validate, function (req, res) {
+router.post('/log/create', AuthMiddleware.user_validate, function (req, res) {
 	LogController.create(req, res);
 });
 
-router.post('/user/log/get', AuthMiddleware.user_validate, function (req, res) {
+router.post('/log/get', AuthMiddleware.user_validate, function (req, res) {
 	LogController.get(req, res);
 })
 

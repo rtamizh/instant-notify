@@ -2,22 +2,30 @@ var appModel = require('../models/app.js');
 
 exports.create = function (req, res) {
 	var name = req.body.name;
-	appModel.getByName(name, function (result) {
-		if (result.length) {
-			res.json({
-				error_code:10,
-				error_msg:'name already exists',
-				message:'error'
-			});
-		}else{
-			appModel.create(name,function  (result) {
+	if(req.body.secret_key !== process.env.SECRET_KEY){
+		res.json({
+			error_code: 25,
+			error_msg: 'incorrect secret code',
+			message: 'error'
+		});
+	}else{
+		appModel.getByName(name, function (result) {
+			if (result.length) {
 				res.json({
-					app_secret:result,
-					message:'success'
+					error_code:10,
+					error_msg:'name already exists',
+					message:'error'
 				});
-			});
-		}
-	})
+			}else{
+				appModel.create(name,function  (result) {
+					res.json({
+						app_secret:result,
+						message:'success'
+					});
+				});
+			}
+		})
+	}
 }
 
 exports.deactivate = function (req, res) {

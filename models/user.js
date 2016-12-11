@@ -19,7 +19,7 @@ exports.create = function  (data, callback) {
 	secret_id = crypto.createHash('md5').update(secret_id).digest('hex');
 	bcrypt.hash(data.password, saltRounds, function(err, hash) {
 		if (err) throw err;
-		database.query('insert into users (id, name, password, secret_id, app_id, is_active, created_at, updated_at) values (default, "'+data.name+'", "'+hash+'", "'+secret_id+'", "'+data.app_id+'", 0, NOW(), NOW())',function  (err) {
+		database.query('insert into users (id, name, password, secret_id, app_id, is_active, created_at, updated_at) values (default, "'+data.name+'", "'+hash+'", "'+secret_id+'", "'+data.app_id+'", 1, NOW(), NOW())',function  (err) {
 			if (err) throw err;
 			callback(secret_id);
 		});
@@ -27,10 +27,16 @@ exports.create = function  (data, callback) {
 };
 
 exports.deactivate = function (data, callback) {
-	database.query('update users set is_active = 0 where secret_id = "'+data.user_secret+'"', function (err, result) {
+	database.query('update users set is_active = 0 where id = "'+data.id+'"', function (err, result) {
 		callback(result.affectedRows);
 	});
 };
+
+exports.activate = function (data, callback) {
+	database.query('update users set is_active = 1 where id = "'+data.id+'"', function (err, result) {
+		callback(result.affectedRows);
+	});
+}
 
 exports.getByCredentials = function (data, callback) {
 	database.query('select * from users where name = "'+data.name+'" and app_id = "'+data.app_id+'"', function (err, rows) {
@@ -53,11 +59,15 @@ exports.updateSecret = function (data, callback) {
 	var time = (new Date()).getTime();
 	var secret_id = data.name+data.password+data.app_secret+time;
 	secret_id = crypto.createHash('md5').update(secret_id).digest('hex');
-	database.query('update users set secret_id = "'+secret_id+'" where secret_id = "'+data.user_secret+'"', function(result){
+	var db = database;
+	db.query('update users set secret_id = "'+secret_id+'" where id = "'+data.id+'"', function(err, result){
+		if(err) throw err;
 		if (result.affectedRows) {
-			getDetails(secret_id, function (result) {
-				callback(result);
-			})
+			database.query('select * from users where id = "'+data.id+'"', function (err, rows) {
+				if (err) throw err;
+				if (rows.length == 0) callback(null)
+				callback(rows[0]);
+			});
 		}
 	});
 };
